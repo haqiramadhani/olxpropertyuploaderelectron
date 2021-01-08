@@ -1,0 +1,21 @@
+<%- include('header.html'); -%>
+
+<main class="form-signin">
+    <form action="/register" method="post">
+        <img class="mb-4" src="/images/logo.png" alt="" height="57">
+        <h1 class="h3 mb-3 fw-normal">Add account</h1>
+        <label for="name" class="visually-hidden">Account name / label</label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Account name / label" required autofocus>
+        <label for="email" class="visually-hidden">Email address</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required>
+        <label for="password" class="visually-hidden">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Add Account</button>
+        <div class="mt-2">
+            Not sure or already in list? <a href="/login">Login</a>
+        </div>
+        <p class="mt-5 mb-3 text-muted"><a href="//web.whatsapp.com/send?phone=6288908883345">Olx Property Uploader</a> &copy; <a href="//mabaru.com">Robot Digital</a></p>
+    </form>
+</main>
+
+<%- include('footer.html'); -%>

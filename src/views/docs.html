@@ -1,0 +1,44 @@
+<%- include('header.html'); -%>
+
+<div class="text-start position-absolute top-0 w-100 mt-4">
+    <div class="container">
+        <div class="text-center">
+            <img class="mb-3" src="/images/logo.png" alt="" height="57">
+            <h1 class="h3 mb-3 fw-normal">Documentation</h1>
+        </div>
+        <ul>
+            <li>Download sample csv file <a href="/sample.csv">here</a></li>
+            <li>Input your data to csv file</li>
+            <li>Click <a href="/login">login</a> on the top menu</li>
+            <li>If no account on the list click <a href="/register">register</a></li>
+            <li>Choose an account & click login button</li>
+            <li>If login success, choose csv file</li>
+            <li>Click Upload to start publish to olx</li>
+        </ul>
+        <a class="btn btn-outline-dark" href="/sample.csv">Download Sample</a>
+        <table class="table table-bordered mt-3">
+            <div class="table-responsive">
+                <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Field Name</th>
+                    <th scope="col">Available Value</th>
+                    <th scope="col">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% docs.forEach(function(doc, i){ %>
+                <tr>
+                    <th scope="row"><%= i + 1 %></th>
+                    <td><%= doc.field %></td>
+                    <td><%= doc.value %></td>
+                    <td><%- doc.description %></td>
+                </tr>
+                <% }); %>
+                </tbody>
+            </div>
+        </table>
+    </div>
+</div>
+
+<%- include('footer.html'); -%>

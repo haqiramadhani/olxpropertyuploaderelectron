@@ -1,0 +1,60 @@
+{
+  "name": "electron-puppeteer",
+  "description": "Simple Electron App",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Robot Digital <haqi@robotdigital.id>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "electron .",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make --platform win32"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "electron": "^11.1.1"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "electron-squirrel-startup": "^1.0.0",
+    "express": "^4.17.1",
+    "multer": "^1.4.2",
+    "puppeteer-core": "^5.5.0",
+    "socket.io": "^3.0.5"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "electron_puppeteer"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
+}

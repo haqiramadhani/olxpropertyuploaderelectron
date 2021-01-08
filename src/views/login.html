@@ -1,0 +1,90 @@
+<%- include('header.html'); -%>
+
+<main class="form-signin">
+    <form>
+        <img class="mb-4" src="/images/logo.png" alt="" height="57">
+        <h1 class="h3 mb-3 fw-normal">Select account</h1>
+        <select class="form-control form-select" aria-label="Select account" name="account" id="account">
+            <% accounts.forEach(function(account){ %>
+            <option value="<%= account %>"><%= account %></option>
+            <% }); %>
+        </select>
+<!--        <label for="name" class="visually-hidden">Account name / label</label>-->
+<!--        <input type="text" id="name" name="name" class="form-control" placeholder="Account name / label" required autofocus>-->
+<!--        <label for="email" class="visually-hidden">Email address</label>-->
+<!--        <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required>-->
+<!--        <label for="password" class="visually-hidden">Password</label>-->
+<!--        <input type="password" id="password" name="password" class="form-control" placeholder="Password" disabled>-->
+        <button class="w-100 btn btn-lg btn-primary mt-3" type="button" id="login">
+            Login
+        </button>
+        <button class="w-100 btn btn-lg btn-outline-danger mt-1" type="button" id="remove">
+            Remove
+        </button>
+        <div class="mt-2">
+            Don't see your account? <a href="/register">Add account</a>
+        </div>
+        <div class="card mt-3" id="logCard" hidden>
+            <div class="card-body text-start">
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                <span id="log"></span>
+            </div>
+        </div>
+        <p class="mt-5 mb-3 text-muted"><a href="//web.whatsapp.com/send?phone=6288908883345">Olx Property Uploader</a> &copy; <a href="//mabaru.com">Robot Digital</a></p>
+    </form>
+</main>
+
+<script>
+    document.getElementById('login').addEventListener('click', () => {
+        runLogin();
+    });
+
+    document.getElementById('remove').addEventListener('click', () => {
+        const account = document.getElementById('account').value;
+        axios.post(
+            window.location.origin + '/remove',
+            {account},
+            {headers: {'content-type': 'application/json'}}
+            ).then(({data}) => {
+                if (data.code === 200) window.location.reload();
+            }).catch(console.log);
+        // fetch(window.location.origin + '/remove', {
+        //     method: 'post',
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         account,
+        //     })
+        // })
+        //     .then(console.log)
+        //     .then(data => console.log(data))
+        //     .catch(console.log)
+    })
+
+    socket.on('message', (message) => {
+        document.getElementById('log').innerText = message;
+    });
+
+    socket.on('redirect', (url) => {
+        window.location = url.includes('//') ? url : window.location.origin + url
+    });
+
+    function runLogin() {
+        document.getElementById('login').disabled = true;
+        document.getElementById('logCard').hidden = false;
+        document.getElementById('log').innerText = 'Waiting for setup the browser ..';
+        const account = document.getElementById('account').value;
+        fetch(window.location.origin + '/login', {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                account,
+            })
+        })
+    }
+</script>
+
+<%- include('footer.html'); -%>
